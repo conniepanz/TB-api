@@ -1,11 +1,15 @@
 const mongoose = require('mongoose')
 
-const exampleSchema = new mongoose.Schema({
-  title: {
+const topicSchema = new mongoose.Schema({
+  username: {
     type: String,
     required: true
   },
-  text: {
+  topic: {
+    type: String,
+    required: true
+  },
+  comment: {
     type: String,
     required: true
   },
@@ -18,4 +22,4 @@ const exampleSchema = new mongoose.Schema({
   timestamps: true
 })
 
-module.exports = mongoose.model('Example', exampleSchema)
+module.exports = mongoose.model('Topic', topicSchema)
