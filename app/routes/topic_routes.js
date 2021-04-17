@@ -50,7 +50,7 @@ router.get('/topics/:id', requireToken, (req, res, next) => {
   Topic.findById(req.params.id)
     .then(handle404)
     // if `findById` is succesful, respond with 200 and "example" JSON
-    .then(topic => res.status(200).json({ example: topic.toObject() }))
+    .then(topic => res.status(200).json({ topic: topic.toObject() }))
     // if an error occurs, pass it to the handler
     .catch(next)
 })
@@ -100,11 +100,11 @@ router.patch('/topics/:id', requireToken, removeBlanks, (req, res, next) => {
 router.delete('/topics/:id', requireToken, (req, res, next) => {
   Topic.findById(req.params.id)
     .then(handle404)
-    .then(example => {
+    .then(topic => {
       // throw an error if current user doesn't own `example`
-      requireOwnership(req, example)
+      requireOwnership(req, topic)
       // delete the example ONLY IF the above didn't throw
-      example.deleteOne()
+      topic.deleteOne()
     })
     // send back 204 and no content if the deletion succeeded
     .then(() => res.sendStatus(204))
